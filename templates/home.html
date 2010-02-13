@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block extrastyle %}
+.small_link {font-size: 10px;}
+{% endblock extrastyle %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}.  Join up below and WIN at HACKERSPACES!</p>
+    <p>... or <a href="{% url auth_logout %}">log out</a>.  whatever.
+{% else %}
+    <p><a href="{% url auth_login %}?next=/">Log in</a> or <a href="{% url registration_register %}">sign up</a> to WIN at HACKERSPACES!</p>
+{% endif %}
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% for task in tasks %}
+	<h3>{{task.name}}</h3>
+	{% if user.is_authenticated %}
+		{% if user in task.users.all %}
+			<a class="small_link" href="{% url quittask task.id %}">quit this task</a>
+		{% else %}
+			<a class="small_link" href="{% url jointask task.id %}">join this task</a>
+		{% endif %}
+	{% endif %}
+	<p style="margin-left: 50px;">
+		{% for user in task.users.all %}
+			{% if user.first_name %}
+				<span style="margin-right: 15px;">{{user.first_name}} {{user.last_name}}</span>
+			{% else %}
+				<span style="margin-right: 15px;">{{user.username}}</span>
+			{% endif %}
+		{% endfor %}
+	<p>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,32 @@
+<script type="text/javascript" src="{{ TINYMCE_JS_URL }}"></script>
+
+{# FIXME: At the very least, the tinyMCE content_css path should come from settings.py to avoid 404s. Perhaps this should be a separate static file under MEDIA_URL since serious users are going to want to customize it completely? #}
+
+<script type="text/javascript">
+    tinyMCE.init({
+        mode: "none",
+        theme: "advanced",
+        language: "en",
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "left",
+        theme_advanced_statusbar_location: "bottom",
+        theme_advanced_buttons1: "fullscreen,|,formatselect,|,bold,italic,|,sub,sup,|,bullist,numlist,|,anchor,link,unlink,|,code",
+        theme_advanced_buttons2: "",
+        theme_advanced_buttons3: "",
+        theme_advanced_path: false,
+        theme_advanced_blockformats: "p,h2,h3",
+        theme_advanced_resizing: true,
+        width: '500',
+        height: '300',
+        content_css: "/path_to_your_media/css/preview.css",
+        plugins: "fullscreen,paste",
+        paste_auto_cleanup_on_paste : true,
+        relative_urls: false
+    });
+
+    contentblock_init_handlers.push(function(){
+        $('.order-machine textarea[name*=richtext], #frontend_editor textarea[name*=richtext]').each(function(){
+            tinyMCE.execCommand('mceAddControl', true, this.id);
+        });
+    });
+</script>

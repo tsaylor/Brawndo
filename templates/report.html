@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class='form' action="" method="POST">
+        <table>
+            {% if form.errors %}
+                <tr><th></th><td class='msg'>Please correct these errors below before continuing.<br/><br/></td></tr>
+            {% else %}
+                <tr><th></th><td class='msg'>* Marked fields are required.<br/><br/></td></tr>
+            {% endif %}
+            
+                <table cellpadding="0" cellspacing="0">
+                <tbody>
+                    {% for field in form %}
+                    <tr>
+                        <th>
+                            <label {% if field.field.required %}class="required"{% endif %} for="{{ field.auto_id }}">{{ field.label }}
+                            {% if field.field.required %}*{% endif %}   
+                            </label>
+                        </th>
+                        <td>
+                            {{ field }}
+                            
+                            {% if field.errors %}
+                                {{field.errors }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            
+            <tr><th></th><td>
+                <input class="submit" type="submit" name="Submit" value="Submit"/>
+            </td></tr>
+        </table>
+    </form>
+{% endblock content %}

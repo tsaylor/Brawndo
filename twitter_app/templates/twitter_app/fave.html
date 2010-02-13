@@ -1,0 +1,30 @@
+{% extends "twitter_app/base.html" %}
+
+{% block content %}
+<h2>Here comes your favorites:</h2>
+<ul>
+	{% for twitter in faves %}
+		<li>
+			<div class="twitter_user {% cycle even,odd as rowcolors %}">
+				<div class="image">
+				<img src="{{ twitter.user.profile_image_url }}" alt="{{ twitter.user.screen_name }}'s avatar">
+				</div>
+				<dl>
+					<dt>Username</dt>
+					<dd><a href="http://twitter.com/{{ twitter.user.screen_name }}/">{{ twitter.user.screen_name }}</a></dd>
+					
+					<dt>Full name</dt>
+					<dd>{{ twitter.user.name|default:"Not specified" }}</dd>
+					
+					<dt>Status</dt>
+					<dd><em>{{ twitter.text }}</em></dd>
+					
+					<div class="clearer"></div>
+					
+				</dl>
+				<div class="clearer"></div>
+			</div>
+		</li>
+	{% endfor %}
+</ul>
+{% endblock %}
