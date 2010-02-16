@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from website.views import home, jointask, quittask, report
+from django.http import HttpResponseRedirect
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -11,14 +11,12 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+    #url(r'^twitter/', include('twitter_app.urls')),
+    #url(r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),
-#    url(r'^twitter/', include('twitter_app.urls')),
-#    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^admin$', lambda x: HttpResponseRedirect('/admin/')),
     url(r'^accounts/', include('registration.urls')),
-    url(r'^$', home, name='home'),
-    url(r'^join/(?P<taskid>\d+)', jointask, name='jointask'),
-    url(r'^quit/(?P<taskid>\d+)', quittask, name='quittask'),
-    url(r'^report/', report, name='report'),
+    url(r'^', include('website.urls')),
 )
 
 from django.conf import settings

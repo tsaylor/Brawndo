@@ -5,13 +5,29 @@
 {% block extrastyle %}
 {% endblock extrastyle %}
 </style>
-<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js" type="text/javascript"></script>
-<script src="{{MEDIA_URL}}js/base.js" type="text/javascript"></script>-->
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js" type="text/javascript"></script>-->
 </head>
 <body>
 <a href="{% url home %}"><h1>Brawndo: The Messy Hackerspace MUTILATOR</h1></a>
+<div class="navbar">
+<a href="{% url home %}">Home</a>
+<a href="{% url report_list %}">Reports</a>
+{% if user.is_authenticated %}
+<a href="{% url auth_logout %}">Log Out</a>
+{% else %}
+<a href="{% url auth_login %}">Log in</a>
+{% endif %}
+</div>
 {% block content %}
 I'm the base template
 {% endblock content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>Please send bug reports to <a href="mailto:tim.saylor@gmail.com">Tim Saylor</a></p>
 </body>
 </html>

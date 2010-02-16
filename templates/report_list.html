@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>Enter a <a href="{% url report_new %}">blank report</a> or</p>
+<p>Select an assignment:</p>
+<ul>
+{% for r in object_list %}
+	<li><a href="{% url report_edit r.id %}">{{r.when}} - {{r.task}}</a> - <span class="gray">{{r.report|truncatewords:10}}</span></li>
+{% endfor %}
+</ul>
+{% endblock content %}

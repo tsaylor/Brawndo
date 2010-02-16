@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 
 {% block extrastyle %}
-.small_link {font-size: 10px;}
+
 {% endblock extrastyle %}
 
 {% block content %}
 {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}.  Join up below and WIN at HACKERSPACES!</p>
-    <p>... or <a href="{% url auth_logout %}">log out</a>.  whatever.
+    <p>Welcome, {% if user.first_name %}{{user.first_name}}{% else %}{{ user.username }}{% endif %}.  Join a task below to help make Pumping Station: One a better place for everyone.</p>
 {% else %}
     <p><a href="{% url auth_login %}?next=/">Log in</a> or <a href="{% url registration_register %}">sign up</a> to WIN at HACKERSPACES!</p>
 {% endif %}
@@ -15,28 +14,33 @@
 {% if messages %}
 <div class="messages">
     {% for message in messages %}
-    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
 {% endif %}
-
+<br><br>
 {% for task in tasks %}
-	<h3>{{task.name}}</h3>
+	<div class="task">
+	<h3 class="task_name">{{task.name}}</h3>
 	{% if user.is_authenticated %}
 		{% if user in task.users.all %}
-			<a class="small_link" href="{% url quittask task.id %}">quit this task</a>
+			<a class="action_link" href="{% url quittask task.id %}">quit this task</a>
 		{% else %}
-			<a class="small_link" href="{% url jointask task.id %}">join this task</a>
+			<a class="action_link" href="{% url jointask task.id %}">join this task</a>
 		{% endif %}
 	{% endif %}
-	<p style="margin-left: 50px;">
+	<p class="task_description">{{task.description}}</p>
+	<p class="task_users">
 		{% for user in task.users.all %}
 			{% if user.first_name %}
-				<span style="margin-right: 15px;">{{user.first_name}} {{user.last_name}}</span>
+				<span class="task_user">{{user.first_name}} {{user.last_name}}</span>
 			{% else %}
-				<span style="margin-right: 15px;">{{user.username}}</span>
+				<span class="task_user">{{user.username}}</span>
 			{% endif %}
+		{% empty %}
+			<span class="task_user">Nobody has joined this task yet.</span>
 		{% endfor %}
-	<p>
+	</p>
+	</div>
 {% endfor %}
 {% endblock content %}

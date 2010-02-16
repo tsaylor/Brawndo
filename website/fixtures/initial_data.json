@@ -1,0 +1,39 @@
+[
+    {
+        "pk": 1, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "brawndo.pumpingstationone.org", 
+            "name": "brawndo.pumpingstationone.org"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "website.task", 
+        "fields": {
+            "hours": 1, 
+            "users": [], 
+            "period": "week", 
+            "name": "Clean the space", 
+            "description": "Do something to make the space cleaner.  Take out the trash, sweep the floor, organize a sloppy corner, build something to keep things in, anything."
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "tsaylor", 
+            "first_name": "Tim", 
+            "last_name": "Saylor", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2010-02-13 13:43:08", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$6de19$3d9c3a0b32089e21e4457dba90969e9b720145d3", 
+            "email": "tim.saylor@gmail.com", 
+            "date_joined": "2010-02-13 13:39:46"
+        }
+    }
+]
