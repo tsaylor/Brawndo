@@ -19,7 +19,7 @@ class Task(models.Model):
 class Assignment(models.Model):
 	user = models.ForeignKey(User, limit_choices_to = {'is_active__exact': True})
 	task = models.ForeignKey(Task)
-	time = models.IntegerField(blank=True, null=True)
+	time = models.IntegerField(verbose_name='Minutes', blank=True, null=True)
 	report = models.TextField(blank=True)
 	when = models.DateField(auto_now_add=True)
 
